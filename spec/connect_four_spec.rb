@@ -30,4 +30,22 @@ describe ConnectFour do
       game.end_game(winner, yes, no)
     end
   end
+
+  describe '#empty_board' do
+    it 'generates a 2D array with seven columns' do
+      result = game.empty_board.length
+      expect(result).to eql(7)
+    end
+
+    it 'each row is of length six' do
+      board = game.empty_board
+      result = board.all? { |col| col.length == 6 }
+      expect(result).to be_truthy
+    end
+
+    it 'has all values as nil' do
+      result = game.empty_board.all? { |col| col.all? { |val| val.nil? } }
+      expect(result).to be_truthy
+    end
+  end
 end
