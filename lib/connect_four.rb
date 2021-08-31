@@ -20,8 +20,8 @@ class ConnectFour
     winner = false
     current_player = player1
     until winner
-      board = take_turn(board, current_player)
       display_board(board)
+      board = take_turn(board, current_player)
       winner = check_for_winner(board)
       current_player = next_turn(current_player, player1, player2)
     end
