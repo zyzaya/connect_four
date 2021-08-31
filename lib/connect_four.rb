@@ -31,7 +31,7 @@ class ConnectFour
   end
 
   def next_turn(current_player, player1, player2)
-    p 'hi'
+    current_player == player1 ? player2 : player1
   end
 
   def empty_board

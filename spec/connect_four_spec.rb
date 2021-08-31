@@ -228,4 +228,19 @@ describe ConnectFour do
       game.play_game(board, player1, player2)
     end
   end
+
+  describe '#next_turn' do
+    let(:player1) { 'x' }
+    let(:player2) { 'y' }
+
+    it 'returns player1 if it is player2\'s turn' do
+      result = game.next_turn(player1, player1, player2)
+      expect(result).to eql(player2)
+    end
+
+    it 'returns player2 if it is player1\'s turn' do
+      result = game.next_turn(player2, player1, player2)
+      expect(result).to eql(player1)
+    end
+  end
 end
