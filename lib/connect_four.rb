@@ -18,7 +18,7 @@ class ConnectFour
 
   def take_turn(board, player)
     info = "#{player}'s turn. Pick a column."
-    retry_text = "Invalid input. Enter a number between one and seven."
+    retry_text = 'Invalid input. Enter a number between one and seven.'
     valid = available_columns(board)
     column = get_input(info, retry_text, valid)
     update_game_board(board, player, column.to_i)
@@ -41,7 +41,6 @@ class ConnectFour
   def end_game(winner, yes, no)
     info = "#{winner} wins! Play again?"
     retry_text = "Invalid input. Enter '#{yes[0]}' or '#{no[0]}'"
-    valid = yes + no
     again = get_input(info, retry_text, yes + no)
     start_game if yes.include?(again)
   end
@@ -79,7 +78,6 @@ class ConnectFour
         end
       end
       return player if winner
-
     end
     false
   end
