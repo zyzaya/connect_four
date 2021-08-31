@@ -3,8 +3,8 @@
 require 'connect_four'
 
 describe ConnectFour do
-  subject(:game) { ConnectFour.new }
-  
+  subject(:game) { ConnectFour.new(%w[y yes], %w[n no]) }
+
   describe '#end_game' do
     let(:winner) { 'player1' }
     let(:loser) { 'player2'}
@@ -186,6 +186,46 @@ describe ConnectFour do
       player2 = 'y'
       expect(game).to receive(:play_game).with(board, player1, player2)
       game.start_game(player1, player2)
+    end
+  end
+
+  describe '#play_game' do
+    let(:player1) { 'x' }
+    let(:player2) { 'y' }
+    let(:board) { game.empty_board }
+
+    before do
+      allow(game).to receive(:take_turn).and_return(board)
+      allow(game).to receive(:display_board)
+      allow(game).to receive(:check_for_winner).and_return(player1)
+      allow(game).to receive(:next_turn).and_return(player2)
+      allow(game).to receive(:end_game)
+    end
+
+    it 'calls #take_turn' do
+      expect(game).to receive(:take_turn).with(board, player1)
+      game.play_game(board, player1, player2)
+    end
+
+    it 'checks for a winner' do
+      expect(game).to receive(:check_for_winner).with(board)
+      game.play_game(board, player1, player2)
+    end
+
+    it 'diplays the board' do
+      expect(game).to receive(:display_board).with(board)
+      game.play_game(board, player1, player2)
+    end
+
+    it 'calls #next_turn' do
+      expect(game).to receive(:next_turn).with(player1, player1, player2)
+      game.play_game(board, player1, player2)
+    end
+
+    it 'calls #end_game if there is a winner' do
+      allow(game).to receive(:check_for_winner).and_return(player1)
+      expect(game).to receive(:end_game).with(player1, player2, game.yes, game.deny)
+      game.play_game(board, player1, player2)
     end
   end
 end

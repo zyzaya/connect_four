@@ -4,9 +4,11 @@ require 'input'
 
 class ConnectFour
   include Input
+  attr_reader :yes, :deny
 
-  def initialize
-    @board = empty_board
+  def initialize(yes, deny)
+    @yes = yes
+    @deny = deny
   end
 
   def start_game(player1, player2)
@@ -15,8 +17,21 @@ class ConnectFour
   end
 
   def play_game(board, player1, player2)
-    # current_player = player1
-    # take_turn
+    winner = false
+    current_player = player1
+    until winner
+      board = take_turn(board, current_player)
+      display_board(board)
+      winner = check_for_winner(board)
+      current_player = next_turn(current_player, player1, player2)
+    end
+
+    loser = winner == player1 ? player2 : player1
+    end_game(winner, loser, @yes, @deny)
+  end
+
+  def next_turn(current_player, player1, player2)
+    p 'hi'
   end
 
   def empty_board
@@ -62,6 +77,9 @@ class ConnectFour
       end
     end
     false
+  end
+
+  def display_board(board)
   end
 
   private
