@@ -7,6 +7,7 @@ describe ConnectFour do
   
   describe '#end_game' do
     let(:winner) { 'player1' }
+    let(:loser) { 'player2'}
     let(:yes) { %w[yes y] }
     let(:no) { %w[no n] }
 
@@ -15,19 +16,19 @@ describe ConnectFour do
       retry_text = "Invalid input. Enter '#{yes[0]}' or '#{no[0]}'"
       valid = yes + no
       expect(game).to receive(:get_input).with(info, retry_text, valid)
-      game.end_game(winner, yes, no)
+      game.end_game(winner, loser, yes, no)
     end
 
     it 'calls calls #start_game if replaying' do
       allow(game).to receive(:get_input).and_return(yes[0])
       expect(game).to receive(:start_game)
-      game.end_game(winner, yes, no)
+      game.end_game(winner, loser, yes, no)
     end
 
     it 'does not call #start_game if not replaying' do
       allow(game).to receive(:get_input).and_return(no[0])
       expect(game).not_to receive(:start_game)
-      game.end_game(winner, yes, no)
+      game.end_game(winner, loser, yes, no)
     end
   end
 
@@ -174,6 +175,17 @@ describe ConnectFour do
       0.upto(board.length - 1) { changed_board = game.update_game_board(board, player, column) }
       result = game.update_game_board(changed_board, player, column)
       expect(result).to eql(changed_board)
+    end
+  end
+
+  describe '#start_game' do
+    let(:board) { game.empty_board }
+
+    it 'calls #play_game with an empty board' do
+      player1 = 'x'
+      player2 = 'y'
+      expect(game).to receive(:play_game).with(board, player1, player2)
+      game.start_game(player1, player2)
     end
   end
 end

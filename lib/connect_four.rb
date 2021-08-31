@@ -9,7 +9,14 @@ class ConnectFour
     @board = empty_board
   end
 
-  def start_game
+  def start_game(player1, player2)
+    board = empty_board
+    play_game(board, player1, player2)
+  end
+
+  def play_game(board, player1, player2)
+    # current_player = player1
+    # take_turn
   end
 
   def empty_board
@@ -38,11 +45,11 @@ class ConnectFour
     board
   end
 
-  def end_game(winner, yes, no)
+  def end_game(winner, loser, yes, no)
     info = "#{winner} wins! Play again?"
     retry_text = "Invalid input. Enter '#{yes[0]}' or '#{no[0]}'"
     again = get_input(info, retry_text, yes + no)
-    start_game if yes.include?(again)
+    start_game(winner, loser) if yes.include?(again)
   end
 
   def check_for_winner(board)
