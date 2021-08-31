@@ -85,4 +85,33 @@ describe ConnectFour do
       expect(result).to eql(player)
     end
   end
+
+  describe '#take_turn' do
+    let(:player) { 'x' }
+    let(:board) { game.empty_board }
+    let(:valid_input) { [1..7].map(&:to_s) }
+
+    before do
+      allow(game).to receive(:available_columns).and_return(valid_input)
+      allow(game).to receive(:get_input).and_return('3')
+    end
+
+    it 'gets available columns' do
+      expect(game).to receive(:available_columns).with(board)
+      game.take_turn(board, player)
+    end
+
+    it 'calls get_input to get a column from the player' do
+      info = "#{player}'s turn. Pick a column."
+      retry_text = "Invalid input. Enter a number between one and seven."
+      expect(game).to receive(:get_input).with(info, retry_text, valid_input)
+      game.take_turn(board, player)
+    end
+
+    it 'updates the board with the given columns' do
+      
+      expect(game).to receive(:update_game_board).with(player, 3)
+      game.take_turn(board, player)
+    end
+  end
 end

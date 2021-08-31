@@ -16,6 +16,21 @@ class ConnectFour
     Array.new(7) { Array.new(6) { nil } }
   end
 
+  def take_turn(board, player)
+    info = "#{player}'s turn. Pick a column."
+    retry_text = "Invalid input. Enter a number between one and seven."
+    valid = available_columns(board)
+    column = get_input(info, retry_text, valid)
+    update_game_board(player, column.to_i)
+  end
+
+  def available_columns(board)
+
+  end
+
+  def update_game_board(player, column)
+  end
+  
   def end_game(winner, yes, no)
     info = "#{winner} wins! Play again?"
     retry_text = "Invalid input. Enter '#{yes[0]}' or '#{no[0]}'"
