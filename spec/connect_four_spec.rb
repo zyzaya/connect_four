@@ -109,8 +109,7 @@ describe ConnectFour do
     end
 
     it 'updates the board with the given columns' do
-      
-      expect(game).to receive(:update_game_board).with(player, 3)
+      expect(game).to receive(:update_game_board).with(board, player, 3)
       game.take_turn(board, player)
     end
   end
@@ -149,6 +148,32 @@ describe ConnectFour do
   end
 
   describe '#update_game_board' do
-    
+    let(:board) { game.empty_board }
+    let(:player) { 'x' }
+
+    it 'sets the lowest cell to the player in an empty column' do
+      column = 4
+      changed_board = game.update_game_board(board, player, column)
+      result = changed_board[column][0]
+      expect(result).to eql(player)
+    end
+
+    it 'sets the lowest cell to the player in a partially filled column' do
+      column = 3
+      changed_board = board
+      0.upto(3) { changed_board = game.update_game_board(board, player, column) }
+      0.upto(3) do |i|
+        result = changed_board[column][i]
+        expect(result).to eql(player)
+      end
+    end
+
+    it 'does nothing if the column is full' do
+      column = 5
+      changed_board = board
+      0.upto(board.length - 1) { changed_board = game.update_game_board(board, player, column) }
+      result = game.update_game_board(changed_board, player, column)
+      expect(result).to eql(changed_board)
+    end
   end
 end

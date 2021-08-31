@@ -21,20 +21,23 @@ class ConnectFour
     retry_text = "Invalid input. Enter a number between one and seven."
     valid = available_columns(board)
     column = get_input(info, retry_text, valid)
-    update_game_board(player, column.to_i)
+    update_game_board(board, player, column.to_i)
   end
 
   def available_columns(board)
     non_full = []
     board.each.with_index do |col, i|
-      non_full << (i + 1).to_s if col.any? { |cell| cell.nil? }
+      non_full << (i + 1).to_s if col.any?(&:nil?)
     end
     non_full
   end
 
-  def update_game_board(player, column)
+  def update_game_board(board, player, column)
+    row = board[column].find_index(nil)
+    board[column][row] = player unless row.nil?
+    board
   end
-  
+
   def end_game(winner, yes, no)
     info = "#{winner} wins! Play again?"
     retry_text = "Invalid input. Enter '#{yes[0]}' or '#{no[0]}'"
