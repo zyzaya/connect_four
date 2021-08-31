@@ -48,4 +48,41 @@ describe ConnectFour do
       expect(result).to be_truthy
     end
   end
+
+  describe '#check_for_winner' do
+    let(:board) { game.empty_board }
+    let(:player) { 'x' }
+
+    it 'returns false when there is no winner' do
+      result = game.check_for_winner(board)
+      expect(result).to eql(false)
+    end 
+
+    it 'returns the winning player if they win in a row' do
+      board[0][1] = player
+      board[1][1] = player
+      board[2][1] = player
+      board[3][1] = player
+      result = game.check_for_winner(board)
+      expect(result).to eql(player)
+    end
+   
+    it 'returns the winning player if they win in a column' do
+      board[1][2] = player
+      board[1][3] = player
+      board[1][4] = player
+      board[1][5] = player
+      result = game.check_for_winner(board)
+      expect(result).to eql(player)
+    end
+
+    it 'returns the winning player if they win diagonaly' do
+      board[2][2] = player
+      board[3][3] = player
+      board[4][4] = player
+      board[5][5] = player
+      result = game.check_for_winner(board)
+      expect(result).to eql(player)
+    end
+  end
 end
