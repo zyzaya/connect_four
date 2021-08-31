@@ -25,7 +25,11 @@ class ConnectFour
   end
 
   def available_columns(board)
-
+    non_full = []
+    board.each.with_index do |col, i|
+      non_full << (i + 1).to_s if col.any? { |cell| cell.nil? }
+    end
+    non_full
   end
 
   def update_game_board(player, column)

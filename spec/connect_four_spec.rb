@@ -114,4 +114,41 @@ describe ConnectFour do
       game.take_turn(board, player)
     end
   end
+
+  describe '#available_columns' do
+    let(:board) { game.empty_board }
+    let(:player) { 'x' }
+
+    it 'returns all columns with an empty board' do
+      columns = [*1..7].map(&:to_s)
+      result = game.available_columns(board)
+      expect(result).to eql(columns)
+    end
+
+    it 'returns an empty array when the board is full' do
+      board.map! do |col|
+        col.map { player }
+      end
+      result = game.available_columns(board)
+      expect(result).to eql([])
+    end
+
+    it 'returns only non-full columns when some columns are full and some are empty' do
+      columns = [*1..7]
+      full_columns = [2, 3, 4]
+      0.upto(board.length) do |row|
+        full_columns.each do |col|
+          board[col - 1][row] = player
+        end
+      end
+      non_full_columns = columns - full_columns
+      non_full_columns = non_full_columns.map(&:to_s)
+      result = game.available_columns(board)
+      expect(result).to eql(non_full_columns)
+    end
+  end
+
+  describe '#update_game_board' do
+    
+  end
 end
