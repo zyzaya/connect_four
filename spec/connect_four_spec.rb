@@ -104,13 +104,13 @@ describe ConnectFour do
 
     it 'calls get_input to get a column from the player' do
       info = "#{player}'s turn. Pick a column."
-      retry_text = "Invalid input. Enter a number between one and seven."
+      retry_text = 'Invalid input. Enter a number between one and seven.'
       expect(game).to receive(:get_input).with(info, retry_text, valid_input)
       game.take_turn(board, player)
     end
 
     it 'updates the board with the given columns' do
-      expect(game).to receive(:update_game_board).with(board, player, 3)
+      expect(game).to receive(:update_game_board).with(board, player, 2)
       game.take_turn(board, player)
     end
   end
@@ -241,6 +241,14 @@ describe ConnectFour do
     it 'returns player2 if it is player1\'s turn' do
       result = game.next_turn(player2, player1, player2)
       expect(result).to eql(player1)
+    end
+  end
+
+  describe '#display_board' do
+    let(:board) { game.empty_board }
+    it 'calls puts with a string' do
+      expect(game).to receive(:puts)
+      game.display_board(board)
     end
   end
 end

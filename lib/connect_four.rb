@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'input'
+require_relative 'input'
 
 class ConnectFour
   include Input
@@ -43,7 +43,7 @@ class ConnectFour
     retry_text = 'Invalid input. Enter a number between one and seven.'
     valid = available_columns(board)
     column = get_input(info, retry_text, valid)
-    update_game_board(board, player, column.to_i)
+    update_game_board(board, player, column.to_i - 1)
   end
 
   def available_columns(board)
@@ -80,6 +80,17 @@ class ConnectFour
   end
 
   def display_board(board)
+    rows = Array.new(6) { '' }
+    board.each do |col|
+      col.each.with_index do |cell, i|
+        rows[i] += "|#{cell.nil? ? ' ' : cell}"
+      end
+    end
+    output = ''
+    (rows.length - 1).downto(0) do |i|
+      output += "#{rows[i]}\n"
+    end
+    puts output
   end
 
   private
