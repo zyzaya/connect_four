@@ -2,6 +2,7 @@
 
 require_relative 'input'
 
+# ConnectFour game
 class ConnectFour
   include Input
   attr_reader :yes, :deny
