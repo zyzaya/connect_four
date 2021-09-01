@@ -7,7 +7,7 @@ describe ConnectFour do
 
   describe '#end_game' do
     let(:winner) { 'player1' }
-    let(:loser) { 'player2'}
+    let(:loser) { 'player2' }
     let(:yes) { %w[yes y] }
     let(:no) { %w[no n] }
 
@@ -45,7 +45,7 @@ describe ConnectFour do
     end
 
     it 'has all values as nil' do
-      result = game.empty_board.all? { |col| col.all? { |val| val.nil? } }
+      result = game.empty_board.all? { |col| col.all?(&:nil?) }
       expect(result).to be_truthy
     end
   end
@@ -57,7 +57,7 @@ describe ConnectFour do
     it 'returns false when there is no winner' do
       result = game.check_for_winner(board)
       expect(result).to eql(false)
-    end 
+    end
 
     it 'returns the winning player if they win in a row' do
       board[0][1] = player
