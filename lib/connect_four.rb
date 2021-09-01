@@ -19,9 +19,10 @@ class ConnectFour
   def play_game(board, player1, player2)
     winner = false
     current_player = player1
+    display_board(board)
     until winner
-      display_board(board)
       board = take_turn(board, current_player)
+      display_board(board)
       winner = check_for_winner(board)
       current_player = next_turn(current_player, player1, player2)
     end
@@ -71,7 +72,6 @@ class ConnectFour
     board.each_index do |col|
       board[col].each_index do |row|
         player = board[col][row]
-        winner = false
         winner = check_cell_for_winner(board, col, row) unless player.nil?
         return winner if winner
       end
@@ -107,11 +107,12 @@ class ConnectFour
       1.upto(3) do |mult|
         next_col = col + (off[0] * mult)
         next_row = row + (off[1] * mult)
-        winner = next_col < board.length && next_row < board[next_col].length
-        if winner
-          next_cell = board[next_col][next_row]
-          winner = player == next_cell
-        end
+        winner =
+          next_col >= 0 && next_col < board.length &&
+          next_row >= 0 && next_row < board[next_col].length
+        next_cell = board[next_col][next_row]
+        winner = player == next_cell
+        break unless winner
       end
       return player if winner
     end

@@ -67,7 +67,7 @@ describe ConnectFour do
       result = game.check_for_winner(board)
       expect(result).to eql(player)
     end
-   
+
     it 'returns the winning player if they win in a column' do
       board[1][2] = player
       board[1][3] = player
@@ -84,6 +84,13 @@ describe ConnectFour do
       board[5][5] = player
       result = game.check_for_winner(board)
       expect(result).to eql(player)
+    end
+
+    it 'returns false if player input has two spaces between' do
+      board[1][0] = player
+      board[4][0] = player
+      result = game.check_for_winner(board)
+      expect(result).to be(false)
     end
   end
 
