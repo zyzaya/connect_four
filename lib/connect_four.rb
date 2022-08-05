@@ -89,7 +89,7 @@ class ConnectFour
     end
     output = ''
     (rows.length - 1).downto(0) do |i|
-      output += "#{rows[i]}\n"
+      output += "#{rows[i]}|\n"
     end
     puts output
   end
