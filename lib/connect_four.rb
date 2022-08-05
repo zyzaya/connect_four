@@ -111,6 +111,8 @@ class ConnectFour
         winner =
           next_col >= 0 && next_col < board.length &&
           next_row >= 0 && next_row < board[next_col].length
+        break unless winner
+
         next_cell = board[next_col][next_row]
         winner = player == next_cell
         break unless winner
