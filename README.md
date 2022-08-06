@@ -1,7 +1,7 @@
 # Chess
 An assignment from [The Odin Project](https://www.theodinproject.com/) to implement a two player game of Connect Four using Ruby.
 
-Additional information can be found at 
+Additional information can be found at https://www.theodinproject.com/lessons/ruby-connect-four
 
 ![Board](doc/board.png)
 
