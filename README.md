@@ -16,8 +16,10 @@ Information on valid input and innwers will be printed in the console.
 
 ## Features
 
-- Ensures Valid moves
-- Checks for winner.
+- Ensures the players can only input valid moves.
+- Checks and indicates when a player gets four in a row.
+
+![Winner](doc/winner.png)
 
 ## Technologies
 - Written in Ruby.
